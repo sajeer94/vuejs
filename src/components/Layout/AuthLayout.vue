@@ -18,32 +18,13 @@
             </q-card-section>
 
             <q-card-section>
-              <q-form @submit.prevent="onLogin">
-                <q-input
-                  filled
-                  v-model="email"
-                  label="Email"
-                  type="email"
-                  class="q-mb-md"
-                  dense
-                  required
-                />
-                <q-input
-                  filled
-                  v-model="password"
-                  label="Password"
-                  type="password"
-                  class="q-mb-md"
-                  dense
-                  required
-                />
-                <q-btn
-                  label="Login"
-                  type="submit"
-                  color="primary"
-                  unelevated
-                  class="full-width"
-                />
+              <q-form @submit.prevent="handleLogin">
+                <q-input filled v-model="username" label="Username" type="text" class="q-mb-md" :dense="dense"
+                  required />
+
+                <q-input filled v-model="password" label="Password" type="password" class="q-mb-md" :dense="dense"
+                  required />
+                <q-btn label="Login" type="submit" color="primary" unelevated class="full-width" />
               </q-form>
             </q-card-section>
           </q-card>
@@ -54,13 +35,42 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, getCurrentInstance } from 'vue'
+import { useRouter } from 'vue-router'
 
-const email = ref('')
+const username = ref('')
 const password = ref('')
+const loading = ref(false)
+const errorMessage = ref('')
+const router = useRouter()
+const dense = ref(true) // or false, depending on your preference
+// Use global axios instance
+const { proxy } = getCurrentInstance()
 
-const onLogin = () => {
-  console.log('Logging in with', email.value, password.value)
+const handleLogin = async () => {
+  loading.value = true
+  errorMessage.value = ''
+
+  try {
+    const response = await proxy.$axios.post('/auth/login', {
+      username: username.value,
+      password: password.value,
+    })
+
+    const { accessToken, refreshToken } = response.data
+
+    // Save tokens to localStorage (your axios plugin uses this)
+    localStorage.setItem('accessToken', accessToken)
+    localStorage.setItem('refreshToken', refreshToken)
+
+    // Redirect to home page
+    router.push('/')
+  } catch (err) {
+    errorMessage.value = 'Invalid username or password'
+    console.error('Login error:', err)
+  } finally {
+    loading.value = false
+  }
 }
 </script>
 
