@@ -1,14 +1,38 @@
 import axios from 'axios'
+import Cookies from 'js-cookie'
 
 const axiosInstance = axios.create({
-  // baseURL: 'https://jsonplaceholder.typicode.com', // Replace with your base URL
-  baseURL: '/users/api', // Replace with your base URL
+  baseURL: 'http://192.168.0.124:9090/users/api', // Change to your actual base URL
   timeout: 10000,
   headers: {
-    'Content-Type': 'application/json',              // Default headers
+    'Content-Type': 'application/json',
   }
 })
-// Token storage (you can later integrate this with Pinia/Vuex)
+
+// ----------------------
+// Token Utilities
+// ----------------------
+function getAccessToken() {
+  return Cookies.get('access_token')
+}
+
+function getRefreshToken() {
+  return Cookies.get('refresh_token')
+}
+
+function setTokens({ access_token, refresh_token }) {
+  Cookies.set('access_token', access_token, { expires: 1 })     // 1 day
+  Cookies.set('refresh_token', refresh_token, { expires: 7 })   // 7 days
+}
+
+function removeTokens() {
+  Cookies.remove('access_token')
+  Cookies.remove('refresh_token')
+}
+
+// ----------------------
+// Refresh Token Queue
+// ----------------------
 let isRefreshing = false
 let refreshSubscribers = []
 
@@ -17,24 +41,13 @@ function subscribeTokenRefresh(cb) {
 }
 
 function onRefreshed(token) {
-  refreshSubscribers.map((cb) => cb(token))
+  refreshSubscribers.forEach((cb) => cb(token))
   refreshSubscribers = []
 }
 
-function getAccessToken() {
-  return localStorage.getItem('accessToken')
-}
-
-function getRefreshToken() {
-  return localStorage.getItem('refreshToken')
-}
-
-function setTokens({ accessToken, refreshToken }) {
-  localStorage.setItem('accessToken', accessToken)
-  localStorage.setItem('refreshToken', refreshToken)
-}
-
-// Request Interceptor – Attach accessToken
+// ----------------------
+// Request Interceptor
+// ----------------------
 axiosInstance.interceptors.request.use((config) => {
   const token = getAccessToken()
   if (token) {
@@ -43,21 +56,26 @@ axiosInstance.interceptors.request.use((config) => {
   return config
 })
 
-// Response Interceptor – Auto refresh token
+// ----------------------
+// Response Interceptor
+// ----------------------
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config
 
-    // Skip refresh if already retried
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    const isLoginOrRefresh =
+      originalRequest.url.includes('/auth/login') ||
+      originalRequest.url.includes('/auth/refresh')
+
+    if (error.response?.status === 401 && !originalRequest._retry && !isLoginOrRefresh) {
       originalRequest._retry = true
 
       if (isRefreshing) {
         return new Promise((resolve) => {
           subscribeTokenRefresh((token) => {
             originalRequest.headers.Authorization = 'Bearer ' + token
-            resolve(api(originalRequest))
+            resolve(axiosInstance(originalRequest))
           })
         })
       }
@@ -66,21 +84,22 @@ axiosInstance.interceptors.response.use(
 
       try {
         const res = await axios.post('http://192.168.0.124:9090/user/api/auth/refresh', {
-          refreshToken: getRefreshToken(),
+          refresh_token: getRefreshToken(),
         })
 
-        const { accessToken, refreshToken } = res.data
-        setTokens({ accessToken, refreshToken })
+        const { access_token, refresh_token } = res.data
+        setTokens({ access_token, refresh_token })
 
         isRefreshing = false
-        onRefreshed(accessToken)
+        onRefreshed(access_token)
 
-        originalRequest.headers.Authorization = 'Bearer ' + accessToken
-        return api(originalRequest)
+        originalRequest.headers.Authorization = 'Bearer ' + access_token
+        return axiosInstance(originalRequest)
+
       } catch (err) {
-        console.error('Refresh token failed', err)
+        console.error('Refresh token failed:', err)
         isRefreshing = false
-        window.location.href = '/login'
+        removeTokens()
         return Promise.reject(err)
       }
     }
@@ -88,4 +107,5 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(error)
   }
 )
+
 export default axiosInstance

@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-
+import Cookies from 'js-cookie'
 // Layouts
 import MainLayout from '../components/Layout/Mainlayout.vue'
 import AuthLayout from '../components/Layout/AuthLayout.vue'
@@ -30,6 +30,7 @@ const routes = [
   {
     path: '/',
     component: MainLayout,
+    meta: { requiresAuth: true }, 
     children: [
       {
         path: 'home',
@@ -58,6 +59,19 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_APP_BASE_URL),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  const accessToken = Cookies.get('access_token')
+
+  if (requiresAuth && !accessToken) {
+    next({ path: '/' }) 
+  } else if (to.name === 'Login' && accessToken) {
+    next({ path: '/' })
+  } else {
+    next()
+  }
 })
 
 export default router

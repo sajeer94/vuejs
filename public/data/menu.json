@@ -1,0 +1,1085 @@
+{
+   "success":true,
+   "data":[
+      {
+         "id":"1",
+         "code":"MENU_DASHBOARD",
+         "name":"Dashboard",
+         "title":"Dashboard",
+         "caption":null,
+         "type":"group",
+         "url":null,
+         "icon":null,
+         "parent":null,
+         "menuorder":"1",
+         "active":"t",
+         "children":[
+            {
+               "id":"2",
+               "code":"MENU_DASHBOARD_DEFAULT",
+               "name":"Dashboard",
+               "title":"Dashboard",
+               "caption":null,
+               "type":"item",
+               "url":"/dashboard/default",
+               "icon":"HomeOutlinedIcon",
+               "parent":"MENU_DASHBOARD",
+               "menuorder":"1",
+               "active":"t",
+               "children":[
+                  
+               ]
+            }
+         ]
+      },
+      {
+         "id":"3",
+         "code":"MENU_LEAD_GROUP",
+         "name":"Lead Management",
+         "title":"Lead Management",
+         "caption":null,
+         "type":"group",
+         "url":null,
+         "icon":null,
+         "parent":null,
+         "menuorder":"3",
+         "active":"t",
+         "children":[
+            {
+               "id":"4",
+               "code":"MENU_LEAD",
+               "name":"Lead Management",
+               "title":"Lead Management",
+               "caption":null,
+               "type":"collapse",
+               "url":"#",
+               "icon":"CoPresentOutlinedIcon",
+               "parent":"MENU_LEAD_GROUP",
+               "menuorder":"1",
+               "active":"t",
+               "children":[
+                  {
+                     "id":"5",
+                     "code":"MENU_ENQUIRY_LIST",
+                     "name":"Enquiries",
+                     "title":"Enquiries",
+                     "caption":null,
+                     "type":"item",
+                     "url":"/leadmanagement/enquiries",
+                     "icon":"ContactPhoneOutlinedIcon",
+                     "parent":"MENU_LEAD",
+                     "menuorder":"1",
+                     "active":"t",
+                     "children":[
+                        
+                     ]
+                  },
+                  {
+                     "id":"6",
+                     "code":"MENU_DEMO_LIST",
+                     "name":"Demos",
+                     "title":"Demos",
+                     "caption":null,
+                     "type":"item",
+                     "url":"/leadmanagement/demos",
+                     "icon":"MonitorOutlinedIcon",
+                     "parent":"MENU_LEAD",
+                     "menuorder":"2",
+                     "active":"t",
+                     "children":[
+                        
+                     ]
+                  },
+                  {
+                     "id":"7",
+                     "code":"MENU_LEAD_LIST",
+                     "name":"Leads",
+                     "title":"Leads",
+                     "caption":null,
+                     "type":"item",
+                     "url":"/leadmanagement/leads",
+                     "icon":"CoPresentOutlinedIcon",
+                     "parent":"MENU_LEAD",
+                     "menuorder":"3",
+                     "active":"t",
+                     "children":[
+                        
+                     ]
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "id":"8",
+         "code":"MENU_CUSTOMER_GROUP",
+         "name":"Customer Management",
+         "title":"Customer Management",
+         "caption":null,
+         "type":"group",
+         "url":null,
+         "icon":null,
+         "parent":null,
+         "menuorder":"2",
+         "active":"t",
+         "children":[
+            {
+               "id":"9",
+               "code":"MENU_CUSTOMER_MANAGEMENT_COLLAPSE",
+               "name":"Customer Management",
+               "title":"Customer Management",
+               "caption":null,
+               "type":"collapse",
+               "url":"#",
+               "icon":"GroupOutlinedIcon",
+               "parent":"MENU_CUSTOMER_GROUP",
+               "menuorder":"1",
+               "active":"t",
+               "children":[
+                  {
+                     "id":"10",
+                     "code":"MENU_CUSTOMER",
+                     "name":"Customers",
+                     "title":"Customers",
+                     "caption":null,
+                     "type":"collapse",
+                     "url":"#",
+                     "icon":"GroupOutlinedIcon",
+                     "parent":"MENU_CUSTOMER_MANAGEMENT_COLLAPSE",
+                     "menuorder":"1",
+                     "active":"t",
+                     "children":[
+                        {
+                           "id":"11",
+                           "code":"MENU_CUSTOMER_LIST",
+                           "name":"Customers",
+                           "title":"Customers",
+                           "caption":null,
+                           "type":"item",
+                           "url":"/customermanagement/customers",
+                           "icon":"GroupOutlinedIcon",
+                           "parent":"MENU_CUSTOMER",
+                           "menuorder":"1",
+                           "active":"t",
+                           "children":[
+                              
+                           ]
+                        },
+                        {
+                           "id":"12",
+                           "code":"MENU_CUSTOMER_CASES",
+                           "name":"Customer Cases",
+                           "title":"Customer Cases",
+                           "caption":null,
+                           "type":"item",
+                           "url":"/customermanagement/cases",
+                           "icon":"CasesOutlinedIcon",
+                           "parent":"MENU_CUSTOMER",
+                           "menuorder":"2",
+                           "active":"t",
+                           "children":[
+                              
+                           ]
+                        }
+                     ]
+                  },
+                  {
+                     "id":"13",
+                     "code":"MENU_CUSTOMER_MASTER",
+                     "name":"Masters",
+                     "title":"Masters",
+                     "caption":null,
+                     "type":"collapse",
+                     "url":"#",
+                     "icon":"SettingsApplicationsOutlinedIcon",
+                     "parent":"MENU_CUSTOMER_MANAGEMENT_COLLAPSE",
+                     "menuorder":"2",
+                     "active":"t",
+                     "children":[
+                        {
+                           "id":"14",
+                           "code":"MENU_CUSTOMER_TYPE_LIST",
+                           "name":"Customer Type",
+                           "title":"Customer Type",
+                           "caption":null,
+                           "type":"item",
+                           "url":"/customermanagement/customertypes",
+                           "icon":"PeopleAltOutlinedIcon",
+                           "parent":"MENU_CUSTOMER_MASTER",
+                           "menuorder":"1",
+                           "active":"t",
+                           "children":[
+                              
+                           ]
+                        },
+                        {
+                           "id":"15",
+                           "code":"MENU_CUSTOMER_CATEGORY_LIST",
+                           "name":"Customer Categories",
+                           "title":"Customer Categories",
+                           "caption":null,
+                           "type":"item",
+                           "url":"/customermanagement/customercategories",
+                           "icon":"PeopleAltOutlinedIcon",
+                           "parent":"MENU_CUSTOMER_MASTER",
+                           "menuorder":"2",
+                           "active":"t",
+                           "children":[
+                              
+                           ]
+                        }
+                     ]
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "id":"16",
+         "code":"MENU_ORDER_GROUP",
+         "name":"Order Management",
+         "title":"Order Management",
+         "caption":null,
+         "type":"group",
+         "url":null,
+         "icon":null,
+         "parent":null,
+         "menuorder":"3",
+         "active":"t",
+         "children":[
+            {
+               "id":"17",
+               "code":"MENU_ORDER",
+               "name":"Order Management",
+               "title":"Order Management",
+               "caption":null,
+               "type":"collapse",
+               "url":"#",
+               "icon":"ReceiptOutlinedIcon",
+               "parent":"MENU_ORDER_GROUP",
+               "menuorder":"1",
+               "active":"t",
+               "children":[
+                  {
+                     "id":"18",
+                     "code":"MENU_INVOICES",
+                     "name":"Invoices",
+                     "title":"Invoices",
+                     "caption":null,
+                     "type":"item",
+                     "url":"/ordermanagement/invoices",
+                     "icon":"ReceiptOutlinedIcon",
+                     "parent":"MENU_ORDER",
+                     "menuorder":"1",
+                     "active":"t",
+                     "children":[
+                        
+                     ]
+                  },
+                  {
+                     "id":"19",
+                     "code":"MENU_QUOTES",
+                     "name":"Quotes",
+                     "title":"Quotes",
+                     "caption":null,
+                     "type":"item",
+                     "url":"/ordermanagement/quotes",
+                     "icon":"RequestQuoteOutlinedIcon",
+                     "parent":"MENU_ORDER",
+                     "menuorder":"2",
+                     "active":"t",
+                     "children":[
+                        
+                     ]
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "id":"20",
+         "code":"MENU_SUPPORT_GROUP",
+         "name":"Support Management",
+         "title":"Support Management",
+         "caption":null,
+         "type":"group",
+         "url":null,
+         "icon":null,
+         "parent":null,
+         "menuorder":"3",
+         "active":"t",
+         "children":[
+            {
+               "id":"21",
+               "code":"MENU_SUPPORT",
+               "name":"Tickets & Faqs",
+               "title":"Tickets & Faqs",
+               "caption":null,
+               "type":"collapse",
+               "url":"#",
+               "icon":"PsychologyAltOutlinedIcon",
+               "parent":"MENU_SUPPORT_GROUP",
+               "menuorder":"1",
+               "active":"t",
+               "children":[
+                  {
+                     "id":"22",
+                     "code":"MENU_TICKET_LIST",
+                     "name":"Tickets",
+                     "title":"Tickets",
+                     "caption":null,
+                     "type":"item",
+                     "url":"/supportmanagement/tickets",
+                     "icon":"BugReportOutlinedIcon",
+                     "parent":"MENU_SUPPORT",
+                     "menuorder":"1",
+                     "active":"t",
+                     "children":[
+                        
+                     ]
+                  },
+                  {
+                     "id":"23",
+                     "code":"MENU_FAQ_LIST",
+                     "name":"FAQ",
+                     "title":"FAQ",
+                     "caption":null,
+                     "type":"item",
+                     "url":"/supportmanagement/faqs",
+                     "icon":"LiveHelpOutlinedIcon",
+                     "parent":"MENU_SUPPORT",
+                     "menuorder":"2",
+                     "active":"t",
+                     "children":[
+                        
+                     ]
+                  },
+                  {
+                     "id":"24",
+                     "code":"MENU_FAQ_CONFIGURATION",
+                     "name":"Configuration",
+                     "title":"Configuration",
+                     "caption":null,
+                     "type":"item",
+                     "url":"/supportmanagement/faqs/configuration",
+                     "icon":"SettingsSuggestOutlinedIcon",
+                     "parent":"MENU_SUPPORT",
+                     "menuorder":"3",
+                     "active":"t",
+                     "children":[
+                        
+                     ]
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "id":"25",
+         "code":"MENU_CHECK_GROUP",
+         "name":"Check Management",
+         "title":"Check Management",
+         "caption":null,
+         "type":"group",
+         "url":null,
+         "icon":null,
+         "parent":null,
+         "menuorder":"10",
+         "active":"t",
+         "children":[
+            {
+               "id":"26",
+               "code":"MENU_CHECK_TYPE_LIST",
+               "name":"Check Types",
+               "title":"Check Types",
+               "caption":null,
+               "type":"collapse",
+               "url":"/checkmanagement/checktypes",
+               "icon":"ChecklistRtlOutlinedIcon",
+               "parent":"MENU_CHECK_GROUP",
+               "menuorder":"1",
+               "active":"t",
+               "children":[
+                  {
+                     "id":"27",
+                     "code":"MENU_CASE_CHECK",
+                     "name":"Case Check",
+                     "title":"Case Check",
+                     "caption":null,
+                     "type":"item",
+                     "url":"/checkmanagement/casecheck",
+                     "icon":"LibraryAddCheckOutlinedIcon",
+                     "parent":"MENU_CHECK_TYPE_LIST",
+                     "menuorder":"1",
+                     "active":"t",
+                     "children":[
+                        
+                     ]
+                  },
+                  {
+                     "id":"28",
+                     "code":"MENU_SETTING_CASE_CONFIGURATION",
+                     "name":"Case Configuration",
+                     "title":"Case Configuration",
+                     "caption":null,
+                     "type":"item",
+                     "url":"checkmanagement/caseconfiguration",
+                     "icon":"SettingsOutlinedIcon",
+                     "parent":"MENU_CHECK_TYPE_LIST",
+                     "menuorder":"2",
+                     "active":"t",
+                     "children":[
+                        
+                     ]
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "id":"29",
+         "code":"MENU_PROJECT_MANAGEMENT_HEADER",
+         "name":"Project Management",
+         "title":"Project Management",
+         "caption":null,
+         "type":"group",
+         "url":null,
+         "icon":null,
+         "parent":null,
+         "menuorder":"1",
+         "active":"t",
+         "children":[
+            {
+               "id":"30",
+               "code":"MENU_PROJECT_MANAGEMENT_COLLAPSE",
+               "name":"Project Management",
+               "title":"Project Management",
+               "caption":null,
+               "type":"collapse",
+               "url":"#",
+               "icon":"FolderOpenOutlinedIcon",
+               "parent":"MENU_PROJECT_MANAGEMENT_HEADER",
+               "menuorder":"1",
+               "active":"t",
+               "children":[
+                  {
+                     "id":"31",
+                     "code":"MENU_PROJECTS_COLLAPSE",
+                     "name":"Projects",
+                     "title":"Projects",
+                     "caption":null,
+                     "type":"collapse",
+                     "url":"#",
+                     "icon":"FolderOpenOutlinedIcon",
+                     "parent":"MENU_PROJECT_MANAGEMENT_COLLAPSE",
+                     "menuorder":"1",
+                     "active":"t",
+                     "children":[
+                        {
+                           "id":"32",
+                           "code":"MENU_PROJECT_DASHBOARD_VIEW",
+                           "name":"Dashboard",
+                           "title":"Dashboard",
+                           "caption":null,
+                           "type":"item",
+                           "url":"/projectmanagement/dashboard",
+                           "icon":"DashboardOutlinedIcon",
+                           "parent":"MENU_PROJECTS_COLLAPSE",
+                           "menuorder":"1",
+                           "active":"t",
+                           "children":[
+                              
+                           ]
+                        },
+                        {
+                           "id":"33",
+                           "code":"MENU_PROJECT_LIST",
+                           "name":"Projects",
+                           "title":"Projects",
+                           "caption":null,
+                           "type":"item",
+                           "url":"/projectmanagement/projects",
+                           "icon":"FolderOpenOutlinedIcon",
+                           "parent":"MENU_PROJECTS_COLLAPSE",
+                           "menuorder":"2",
+                           "active":"t",
+                           "children":[
+                              
+                           ]
+                        },
+                        {
+                           "id":"34",
+                           "code":"MENU_PROJECT_PHASE_LIST",
+                           "name":"Project Phases",
+                           "title":"Project Phases",
+                           "caption":null,
+                           "type":"item",
+                           "url":"/projectmanagement/phases",
+                           "icon":"FormatListNumberedOutlinedIcon",
+                           "parent":"MENU_PROJECTS_COLLAPSE",
+                           "menuorder":"3",
+                           "active":"t",
+                           "children":[
+                              
+                           ]
+                        },
+                        {
+                           "id":"35",
+                           "code":"MENU_PROJECT_SPRINT_LIST",
+                           "name":"Project Sprint",
+                           "title":"Project Sprint",
+                           "caption":null,
+                           "type":"item",
+                           "url":"/projectmanagement/sprints",
+                           "icon":"ListAltOutlinedIcon",
+                           "parent":"MENU_PROJECTS_COLLAPSE",
+                           "menuorder":"4",
+                           "active":"t",
+                           "children":[
+                              
+                           ]
+                        },
+                        {
+                           "id":"36",
+                           "code":"MENU_PROJECT_TASK_LIST",
+                           "name":"Project Tasks",
+                           "title":"Project Tasks",
+                           "caption":null,
+                           "type":"item",
+                           "url":"/projectmanagement/tasks",
+                           "icon":"TaskAltOutlinedIcon",
+                           "parent":"MENU_PROJECTS_COLLAPSE",
+                           "menuorder":"5",
+                           "active":"t",
+                           "children":[
+                              
+                           ]
+                        }
+                     ]
+                  },
+                  {
+                     "id":"37",
+                     "code":"MENU_PROJECT_CONFIGURATION",
+                     "name":"Configuration",
+                     "title":"Configuration",
+                     "caption":null,
+                     "type":"item",
+                     "url":"/projectmanagement/configurations",
+                     "icon":"SettingsOutlinedIcon",
+                     "parent":"MENU_PROJECT_MANAGEMENT_COLLAPSE",
+                     "menuorder":"2",
+                     "active":"t",
+                     "children":[
+                        
+                     ]
+                  },
+                  {
+                     "id":"38",
+                     "code":"MENU_PROJECT_REPORT",
+                     "name":"Project Reports",
+                     "title":"Project Reports",
+                     "caption":null,
+                     "type":"item",
+                     "url":"/projectmanagement/reports",
+                     "icon":"AssessmentOutlinedIcon",
+                     "parent":"MENU_PROJECT_MANAGEMENT_COLLAPSE",
+                     "menuorder":"3",
+                     "active":"t",
+                     "children":[
+                        
+                     ]
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "id":"39",
+         "code":"MENU_HUMAN_RESOURCE_HEADER",
+         "name":"Human Resource",
+         "title":"Human Resource",
+         "caption":null,
+         "type":"group",
+         "url":null,
+         "icon":null,
+         "parent":null,
+         "menuorder":"1",
+         "active":"t",
+         "children":[
+            {
+               "id":"40",
+               "code":"MENU_HUMAN_RESOURCE_COLLAPSE",
+               "name":"Human Resource",
+               "title":"Human Resource",
+               "caption":null,
+               "type":"collapse",
+               "url":"#",
+               "icon":"Groups2OutlinedIcon",
+               "parent":"MENU_HUMAN_RESOURCE_HEADER",
+               "menuorder":"1",
+               "active":"t",
+               "children":[
+                  {
+                     "id":"41",
+                     "code":"MENU_EMPLOYEE_COLLAPSE",
+                     "name":"Employee",
+                     "title":"Employee",
+                     "caption":null,
+                     "type":"collapse",
+                     "url":"#",
+                     "icon":"PersonOutlineOutlinedIcon",
+                     "parent":"MENU_HUMAN_RESOURCE_COLLAPSE",
+                     "menuorder":"1",
+                     "active":"t",
+                     "children":[
+                        {
+                           "id":"42",
+                           "code":"MENU_HUMAN_RESOURCE_DASHBOARD_VIEW",
+                           "name":"Dashboard",
+                           "title":"Dashboard",
+                           "caption":null,
+                           "type":"item",
+                           "url":"/humanresource/dashboard",
+                           "icon":"DashboardOutlinedIcon",
+                           "parent":"MENU_EMPLOYEE_COLLAPSE",
+                           "menuorder":"1",
+                           "active":"t",
+                           "children":[
+                              
+                           ]
+                        },
+                        {
+                           "id":"43",
+                           "code":"MENU_EMPLOYEE_LIST",
+                           "name":"Employee",
+                           "title":"Employee",
+                           "caption":null,
+                           "type":"item",
+                           "url":"/humanresource/employee",
+                           "icon":"PersonOutlineOutlinedIcon",
+                           "parent":"MENU_EMPLOYEE_COLLAPSE",
+                           "menuorder":"2",
+                           "active":"t",
+                           "children":[
+                              
+                           ]
+                        },
+                        {
+                           "id":"44",
+                           "code":"MENU_EMPLOYEE_PAYROLL_LIST",
+                           "name":"Payroll",
+                           "title":"Payroll",
+                           "caption":null,
+                           "type":"item",
+                           "url":"/humanresource/payroll",
+                           "icon":"PaymentOutlinedIcon",
+                           "parent":"MENU_EMPLOYEE_COLLAPSE",
+                           "menuorder":"3",
+                           "active":"t",
+                           "children":[
+                              
+                           ]
+                        },
+                        {
+                           "id":"45",
+                           "code":"MENU_EMPLOYEE_LEAVE_LIST",
+                           "name":"Employee Leaves",
+                           "title":"Employee Leaves",
+                           "caption":null,
+                           "type":"item",
+                           "url":"/humanresource/employeeleaves",
+                           "icon":"ListAltOutlinedIcon",
+                           "parent":"MENU_EMPLOYEE_COLLAPSE",
+                           "menuorder":"4",
+                           "active":"t",
+                           "children":[
+                              
+                           ]
+                        },
+                        {
+                           "id":"46",
+                           "code":"MENU_EMPLOYEE_ATTENDANCE_LIST",
+                           "name":"Employee Attendance",
+                           "title":"Employee Attendance",
+                           "caption":null,
+                           "type":"item",
+                           "url":"/humanresource/attendance",
+                           "icon":"TaskAltOutlinedIcon",
+                           "parent":"MENU_EMPLOYEE_COLLAPSE",
+                           "menuorder":"5",
+                           "active":"t",
+                           "children":[
+                              
+                           ]
+                        },
+                        {
+                           "id":"47",
+                           "code":"MENU_EMPLOYEE_OVERTIME_LIST",
+                           "name":"Employee Overtime",
+                           "title":"Employee Overtime",
+                           "caption":null,
+                           "type":"item",
+                           "url":"/humanresource/overtime",
+                           "icon":"AccessTimeOutlinedIcon",
+                           "parent":"MENU_EMPLOYEE_COLLAPSE",
+                           "menuorder":"6",
+                           "active":"t",
+                           "children":[
+                              
+                           ]
+                        },
+                        {
+                           "id":"48",
+                           "code":"MENU_EMPLOYEE_ROLE_LIST",
+                           "name":"Employee Roles",
+                           "title":"Employee Roles",
+                           "caption":null,
+                           "type":"item",
+                           "url":"/humanresource/employeerole",
+                           "icon":"PersonOutlineOutlinedIcon",
+                           "parent":"MENU_EMPLOYEE_COLLAPSE",
+                           "menuorder":"7",
+                           "active":"t",
+                           "children":[
+                              
+                           ]
+                        },
+                        {
+                           "id":"49",
+                           "code":"MENU_EMPLOYEE_LOAN_LIST",
+                           "name":"Employee Loans",
+                           "title":"Employee Loans",
+                           "caption":null,
+                           "type":"item",
+                           "url":"/humanresource/loans",
+                           "icon":"CurrencyRupeeOutlinedIcon",
+                           "parent":"MENU_EMPLOYEE_COLLAPSE",
+                           "menuorder":"8",
+                           "active":"t",
+                           "children":[
+                              
+                           ]
+                        }
+                     ]
+                  },
+                  {
+                     "id":"50",
+                     "code":"MENU_HUMAN_RESOURCE_CONFIGURATION",
+                     "name":"Configuration",
+                     "title":"Configuration",
+                     "caption":null,
+                     "type":"item",
+                     "url":"/humanresource/configurations",
+                     "icon":"SettingsOutlinedIcon",
+                     "parent":"MENU_HUMAN_RESOURCE_COLLAPSE",
+                     "menuorder":"2",
+                     "active":"t",
+                     "children":[
+                        
+                     ]
+                  },
+                  {
+                     "id":"51",
+                     "code":"MENU_EMPLOYEE_REPORT",
+                     "name":"Employee Reports",
+                     "title":"Employee Reports",
+                     "caption":null,
+                     "type":"item",
+                     "url":"/humanresource/reports",
+                     "icon":"AssessmentOutlinedIcon",
+                     "parent":"MENU_HUMAN_RESOURCE_COLLAPSE",
+                     "menuorder":"3",
+                     "active":"t",
+                     "children":[
+                        
+                     ]
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "id":"52",
+         "code":"MENU_USER_PRIVILEGE_GROUP",
+         "name":"Users & Privileges",
+         "title":"Users & Privileges",
+         "caption":null,
+         "type":"group",
+         "url":null,
+         "icon":null,
+         "parent":null,
+         "menuorder":"1000",
+         "active":"t",
+         "children":[
+            {
+               "id":"53",
+               "code":"MENU_USER_PRIVILEGE",
+               "name":"Users & Privileges",
+               "title":"Users & Privileges",
+               "caption":null,
+               "type":"collapse",
+               "url":"#",
+               "icon":"GroupOutlinedIcon",
+               "parent":"MENU_USER_PRIVILEGE_GROUP",
+               "menuorder":"1",
+               "active":"t",
+               "children":[
+                  {
+                     "id":"54",
+                     "code":"MENU_USER_ROLE",
+                     "name":"User Roles",
+                     "title":"User Roles",
+                     "caption":null,
+                     "type":"item",
+                     "url":"/userprivileges/userroles",
+                     "icon":"SupervisedUserCircleOutlinedIcon",
+                     "parent":"MENU_USER_PRIVILEGE",
+                     "menuorder":"1",
+                     "active":"t",
+                     "children":[
+                        
+                     ]
+                  },
+                  {
+                     "id":"55",
+                     "code":"MENU_USER",
+                     "name":"Users",
+                     "title":"Users",
+                     "caption":null,
+                     "type":"item",
+                     "url":"/userprivileges/users",
+                     "icon":"Person2OutlinedIcon",
+                     "parent":"MENU_USER_PRIVILEGE",
+                     "menuorder":"2",
+                     "active":"t",
+                     "children":[
+                        
+                     ]
+                  },
+                  {
+                     "id":"56",
+                     "code":"MENU_USER_PASSWORD_POLICY",
+                     "name":"Password Policy",
+                     "title":"Password Policy",
+                     "caption":null,
+                     "type":"item",
+                     "url":"/userprivileges/passwordpolicy",
+                     "icon":"PasswordOutlinedIcon",
+                     "parent":"MENU_USER_PRIVILEGE",
+                     "menuorder":"3",
+                     "active":"t",
+                     "children":[
+                        
+                     ]
+                  },
+                  {
+                     "id":"57",
+                     "code":"MENU_USER_AUTHENTICATION_POLICY",
+                     "name":"Authentication Policy",
+                     "title":"Authentication Policy",
+                     "caption":null,
+                     "type":"item",
+                     "url":"/userprivileges/authenticationpolicy",
+                     "icon":"AccessibilitySharpIcon",
+                     "parent":"MENU_USER_PRIVILEGE",
+                     "menuorder":"4",
+                     "active":"t",
+                     "children":[
+                        
+                     ]
+                  },
+                  {
+                     "id":"58",
+                     "code":"MENU_USER_CONFIGURATION",
+                     "name":"Configuration",
+                     "title":"Configuration",
+                     "caption":null,
+                     "type":"item",
+                     "url":"/userprivileges/configuration",
+                     "icon":"SettingsSuggestOutlinedIcon",
+                     "parent":"MENU_USER_PRIVILEGE",
+                     "menuorder":"5",
+                     "active":"t",
+                     "children":[
+                        
+                     ]
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "id":"59",
+         "code":"MENU_SETTING_CONFIGURATION",
+         "name":"Settings & Configurations",
+         "title":"Settings & Configurations",
+         "caption":null,
+         "type":"group",
+         "url":null,
+         "icon":null,
+         "parent":null,
+         "menuorder":"1001",
+         "active":"t",
+         "children":[
+            {
+               "id":"60",
+               "code":"MENU_SETTING_MASTER",
+               "name":"Masters",
+               "title":"Masters",
+               "caption":null,
+               "type":"collapse",
+               "url":"#",
+               "icon":"SettingsApplicationsOutlinedIcon",
+               "parent":"MENU_SETTING_CONFIGURATION",
+               "menuorder":"1",
+               "active":"t",
+               "children":[
+                  {
+                     "id":"61",
+                     "code":"MENU_SETTING_GENERAL_MASTER",
+                     "name":"General Masters",
+                     "title":"General Masters",
+                     "caption":null,
+                     "type":"item",
+                     "url":"/masters/general",
+                     "icon":"SettingsOutlinedIcon",
+                     "parent":"MENU_SETTING_MASTER",
+                     "menuorder":"1",
+                     "active":"t",
+                     "children":[
+                        
+                     ]
+                  },
+                  {
+                     "id":"62",
+                     "code":"MENU_SETTING_LOCATION_MASTER",
+                     "name":"Location Masters",
+                     "title":"Location Masters",
+                     "caption":null,
+                     "type":"item",
+                     "url":"/masters/locations",
+                     "icon":"PlaceOutlinedIcon",
+                     "parent":"MENU_SETTING_MASTER",
+                     "menuorder":"2",
+                     "active":"t",
+                     "children":[
+                        
+                     ]
+                  }
+               ]
+            },
+            {
+               "id":"63",
+               "code":"MENU_CONFIGURATION",
+               "name":"Configurations",
+               "title":"Configurations",
+               "caption":null,
+               "type":"collapse",
+               "url":"#",
+               "icon":"SettingsSuggestOutlinedIcon",
+               "parent":"MENU_SETTING_CONFIGURATION",
+               "menuorder":"2",
+               "active":"t",
+               "children":[
+                  {
+                     "id":"64",
+                     "code":"MENU_CONFIGURATION_ORGANIZATION",
+                     "name":"Organization",
+                     "title":"Organization",
+                     "caption":null,
+                     "type":"item",
+                     "url":"/configuration/organization",
+                     "icon":"CorporateFareOutlinedIcon",
+                     "parent":"MENU_CONFIGURATION",
+                     "menuorder":"1",
+                     "active":"t",
+                     "children":[
+                        
+                     ]
+                  },
+                  {
+                     "id":"65",
+                     "code":"MENU_CONFIGURATION_OUTGOIMG_MAIL",
+                     "name":"Outgoing Mail",
+                     "title":"Outgoing Mail",
+                     "caption":null,
+                     "type":"item",
+                     "url":"/configuration/outgoingmail",
+                     "icon":"MailLockOutlinedIcon",
+                     "parent":"MENU_CONFIGURATION",
+                     "menuorder":"2",
+                     "active":"t",
+                     "children":[
+                        
+                     ]
+                  },
+                  {
+                     "id":"66",
+                     "code":"MENU_CONFIGURATION_LOGIN_TERMS",
+                     "name":"Login Terms & Conditions",
+                     "title":"Login Terms & Conditions",
+                     "caption":null,
+                     "type":"item",
+                     "url":"/configuration/loginterms",
+                     "icon":"AssignmentOutlinedIcon",
+                     "parent":"MENU_CONFIGURATION",
+                     "menuorder":"3",
+                     "active":"t",
+                     "children":[
+                        
+                     ]
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "id":"67",
+         "code":"MENU_AUDIT_LOG",
+         "name":"Audit & Logs",
+         "title":"Audit & Logs",
+         "caption":null,
+         "type":"group",
+         "url":null,
+         "icon":null,
+         "parent":null,
+         "menuorder":"1002",
+         "active":"t",
+         "children":[
+            {
+               "id":"68",
+               "code":"MENU_AUDIT_TRAIL",
+               "name":"Audit Trail",
+               "title":"Audit Trail",
+               "caption":null,
+               "type":"item",
+               "url":"/auditandlog/audittrail",
+               "icon":"VerifiedUserOutlined",
+               "parent":"MENU_AUDIT_LOG",
+               "menuorder":"1",
+               "active":"t",
+               "children":[
+                  
+               ]
+            },
+            {
+               "id":"69",
+               "code":"MENU_API_REQUEST_LOG",
+               "name":"API Request Log",
+               "title":"API Request Log",
+               "caption":null,
+               "type":"item",
+               "url":"/auditandlog/apireqestlog",
+               "icon":"ReceiptLongOutlinedIcon",
+               "parent":"MENU_AUDIT_LOG",
+               "menuorder":"2",
+               "active":"t",
+               "children":[
+                  
+               ]
+            }
+         ]
+      }
+   ],
+   "message":"System Menus"
+}

@@ -9,22 +9,46 @@
         </q-toolbar>
       </q-footer>
 
-      <!-- Centered Content -->
+      <!-- Centered Login Card -->
       <q-page-container>
         <q-page class="flex flex-center">
           <q-card class="q-pa-lg shadow-2" style="width: 100%; max-width: 400px;">
+
+
             <q-card-section class="text-h6 text-center">
               Login
             </q-card-section>
 
+            <!-- Error Alert -->
+            <div v-if="errorMessage" class="row items-center bg-red-2 text-red-10 q-mb-md q-pa-sm rounded-borders"
+              style="border: 1px solid #f5c6cb;">
+              <div class="col-grow text-caption">
+                {{ errorMessage }}
+              </div>
+              <q-btn flat dense icon="close" size="sm" @click="errorMessage = ''" class="q-ml-sm text-red-10" />
+            </div>
+
+            <!-- Success Alert -->
+            <div v-else-if="successMessage"
+              class="row items-center bg-green-2 text-green-10 q-mb-md q-pa-sm rounded-borders"
+              style="border: 1px solid #c3e6cb;">
+              <div class="col-grow text-caption">
+                {{ successMessage }}
+              </div>
+              <q-btn flat dense icon="close" size="sm" @click="successMessage = ''" class="q-ml-sm text-green-10" />
+            </div>
+
             <q-card-section>
+
               <q-form @submit.prevent="handleLogin">
                 <q-input filled v-model="username" label="Username" type="text" class="q-mb-md" :dense="dense"
-                  required />
-
+                  autocomplete="off" required />
                 <q-input filled v-model="password" label="Password" type="password" class="q-mb-md" :dense="dense"
-                  required />
-                <q-btn label="Login" type="submit" color="primary" unelevated class="full-width" />
+                  autocomplete="off" required />
+
+
+                <q-btn :label="loading ? 'Logging in...' : 'Login'" type="submit" color="primary" unelevated
+                  class="full-width" :loading="loading" :disable="loading" />
               </q-form>
             </q-card-section>
           </q-card>
@@ -37,37 +61,50 @@
 <script setup>
 import { ref, getCurrentInstance } from 'vue'
 import { useRouter } from 'vue-router'
-
+import Cookies from 'js-cookie'    // import js-cookie
 const username = ref('')
 const password = ref('')
 const loading = ref(false)
 const errorMessage = ref('')
+const successMessage = ref('')
+const dense = ref(true)
+
 const router = useRouter()
-const dense = ref(true) // or false, depending on your preference
-// Use global axios instance
 const { proxy } = getCurrentInstance()
 
 const handleLogin = async () => {
   loading.value = true
   errorMessage.value = ''
+  successMessage.value = ''
 
   try {
     const response = await proxy.$axios.post('/auth/login', {
       username: username.value,
-      password: password.value,
+      password: password.value
     })
 
-    const { accessToken, refreshToken } = response.data
+    const { access_token, refresh_token } = response.data
 
-    // Save tokens to localStorage (your axios plugin uses this)
-    localStorage.setItem('accessToken', accessToken)
-    localStorage.setItem('refreshToken', refreshToken)
+     Cookies.set('access_token', access_token, { expires: 1, secure: true, sameSite: 'Strict' })
+    Cookies.set('refresh_token', refresh_token, { expires: 7, secure: true, sameSite: 'Strict' })
 
-    // Redirect to home page
-    router.push('/')
+    successMessage.value = 'Successfully Logged In'
+    setTimeout(() => {
+      router.push('/home')
+    }, 1000)
+    return successMessage;
+
   } catch (err) {
-    errorMessage.value = 'Invalid username or password'
-    console.error('Login error:', err)
+    // Display error from interceptor
+    if (err.status === 401) {
+      errorMessage.value = 'Invalid username or password'
+    } else if (err.status === 500) {
+      errorMessage.value = 'Server error. Please try again later.'
+    } else {
+      errorMessage.value = err.message || 'Login failed'
+    }
+    router.push('/')
+    return errorMessage;
   } finally {
     loading.value = false
   }
