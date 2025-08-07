@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Cookies from 'js-cookie'
+
 // Layouts
 import MainLayout from '../components/Layout/Mainlayout.vue'
 import AuthLayout from '../components/Layout/AuthLayout.vue'
 
 // Pages
-import Login from '../components/Layout/AuthLayout.vue'
+import Login from '../page/Login.vue'   
 import Home from '../page/Home.vue'
 import About from '../page/About.vue'
 import Employee from '../page/Employee.vue'
@@ -14,7 +15,7 @@ import NotFound from '../components/NotFound.vue'
 const routes = [
   {
     path: '/',
-    redirect: '/auth/login' 
+    redirect: '/auth/login'
   },
   {
     path: '/auth',
@@ -22,7 +23,7 @@ const routes = [
     children: [
       {
         path: 'login',
-        name: 'login',
+        name: 'Login', 
         component: Login
       }
     ]
@@ -30,7 +31,7 @@ const routes = [
   {
     path: '/',
     component: MainLayout,
-    meta: { requiresAuth: true }, 
+    meta: { requiresAuth: true },
     children: [
       {
         path: 'home',
@@ -61,14 +62,19 @@ const router = createRouter({
   routes
 })
 
+// ------------------------------
+// Route Guard
+// ------------------------------
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
   const accessToken = Cookies.get('access_token')
 
   if (requiresAuth && !accessToken) {
-    next({ path: '/' }) 
+    // Unauthenticated - redirect to login
+    next({ name: 'Login' })
   } else if (to.name === 'Login' && accessToken) {
-    next({ path: '/' })
+    // Already logged in - redirect to home
+    next({ name: 'home' })
   } else {
     next()
   }
