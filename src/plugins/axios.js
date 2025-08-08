@@ -31,7 +31,7 @@ function setTokens({ access_token, refresh_token }) {
 function logoutUser() {
   Cookies.remove('access_token')
   Cookies.remove('refresh_token')
-  router.push('/auth/login')
+  window.location.href = '/auth/login'
 }
 
 // ----------------------
