@@ -1,5 +1,5 @@
 <template>
-  view
+  add
 </template>
 
 <script>

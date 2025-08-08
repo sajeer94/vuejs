@@ -1,34 +1,35 @@
 <template>
   <div class="q-pa-md">
-    <q-table
-      flat
-      bordered
-      title="Roles"
-      :rows="rows"
-      :columns="columns"
-      row-key="id"
-      v-model:pagination="pagination"
-      :loading="loading"
-      binary-state-sort
-      @request="onRequest"
-    >
+
+    <q-table flat bordered title="Roles" :rows="rows" :columns="columns" row-key="id" v-model:pagination="pagination"
+      :loading="loading" binary-state-sort @request="onRequest">
       <template v-slot:top-right>
-        <q-input
-          borderless
-          dense
-          debounce="300"
-          v-model="globalFilter"
-          placeholder="Search"
-          @update:model-value="onSearch"
-        >
-          <template v-slot:append>
-            <q-icon name="search" />
-          </template>
-        </q-input>
+        <!-- Container with vertical layout -->
+        <div class="column q-pa-sm">
+
+          <!-- Add Role Button -->
+          <div class="q-mb-lg">
+            <q-btn color="primary" label="Add Role" to="userroles/add" tag="router-link" class="q-w-auto float-right" />
+          </div>
+          <q-space></q-space>
+          <!-- Search Input -->
+          <div>
+            <q-input borderless dense debounce="300" v-model="globalFilter" placeholder="Search"
+              @update:model-value="onSearch" clearable>
+              <template v-slot:append>
+                <q-icon name="search" />
+              </template>
+            </q-input>
+          </div>
+
+        </div>
       </template>
     </q-table>
+
   </div>
 </template>
+
+
 
 <script setup>
 import { ref, onMounted, getCurrentInstance } from 'vue'
