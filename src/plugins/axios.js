@@ -1,13 +1,14 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
+
 const axiosInstance = axios.create({
-  baseURL: 'http://192.168.0.124:9090/users/api', // use Vite proxy path
+  baseURL: 'http://192.168.0.124:9090/users/api',
   timeout: 10000,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
-    'Accept':'application/json'
+    'Accept': 'application/json'
   }
 })
 
@@ -27,9 +28,10 @@ function setTokens({ access_token, refresh_token }) {
   Cookies.set('refresh_token', refresh_token, { expires: 7 })
 }
 
-function removeTokens() {
+function logoutUser() {
   Cookies.remove('access_token')
   Cookies.remove('refresh_token')
+  router.push('/auth/login')
 }
 
 // ----------------------
@@ -69,6 +71,7 @@ axiosInstance.interceptors.response.use(
       originalRequest.url.includes('/auth/login') ||
       originalRequest.url.includes('/auth/refresh')
 
+    // === Handle 401 with Refresh ===
     if (error.response?.status === 401 && !originalRequest._retry && !isLoginOrRefresh) {
       originalRequest._retry = true
 
@@ -101,9 +104,21 @@ axiosInstance.interceptors.response.use(
 
       } catch (err) {
         isRefreshing = false
-        removeTokens()
+        logoutUser()
         return Promise.reject(err)
       }
+    }
+
+    // === Server unreachable ===
+    if (!error.response) {
+      console.error('Backend unreachable — logging out.')
+      logoutUser()
+    }
+
+    // === Server error (500+) ===
+    if (error.response?.status >= 500) {
+      console.error(`Server error (${error.response?.status}) — logging out.`)
+      logoutUser()
     }
 
     return Promise.reject(error)
