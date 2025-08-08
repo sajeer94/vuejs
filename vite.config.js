@@ -12,8 +12,7 @@ export default defineConfig({
         target: 'http://192.168.0.124:9090',
         changeOrigin: true,
         secure: false,
-        historyApiFallback: true,
-        rewrite: path => path.replace(/^\/users\/api/, '/users/api')
+      
       }
     }
   },

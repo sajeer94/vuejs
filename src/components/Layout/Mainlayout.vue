@@ -54,7 +54,7 @@ function logout() {
                     <q-expansion-item :icon="subsMenu.icon" :label="subsMenu.name" expand-separator
                       v-if="subsMenu.children && subsMenu.children.length">
                       <template v-for="(substMenu, index) in subsMenu.children" :key="index">
-                        <q-item clickable v-ripple :style="{ paddingLeft: '25px' }">
+                        <q-item :to="substMenu.url" tag="router-link" clickable v-ripple :style="{ paddingLeft: '25px' }">
                           <q-item-section avatar>
                             <q-icon :name="substMenu.icon" />
                           </q-item-section>
@@ -62,7 +62,7 @@ function logout() {
                         </q-item>
                       </template>
                     </q-expansion-item>
-                    <q-item v-else clickable v-ripple>
+                    <q-item :to="subsMenu.url" tag="router-link" v-else clickable v-ripple>
                       <q-item-section avatar>
                         <q-icon :name="subsMenu.icon || 'chevron_right'" />
                       </q-item-section>
@@ -71,7 +71,7 @@ function logout() {
 
                   </template>
                 </q-expansion-item>
-                <q-item v-else clickable v-ripple>
+                <q-item  :to="subMenu.url" tag="router-link" v-else clickable v-ripple>
                   <q-item-section avatar>
                     <q-icon :name="subMenu.icon || 'chevron_right'" />
                   </q-item-section>

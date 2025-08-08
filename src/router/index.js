@@ -12,6 +12,10 @@ import About from '../page/About.vue'
 import Employee from '../page/Employee.vue'
 import NotFound from '../components/NotFound.vue'
 
+
+//Module Routes
+import userRoleRoutes from './modules/userprivileges/userrole.routes'
+
 const routes = [
   {
     path: '/',
@@ -47,7 +51,8 @@ const routes = [
         path: 'employee',
         name: 'employee',
         component: Employee
-      }
+      },
+      ...userRoleRoutes
     ]
   },
   {

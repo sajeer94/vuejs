@@ -2,15 +2,17 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 
 const axiosInstance = axios.create({
-  baseURL: 'http://192.168.0.124:9090/users/api', // Change to your actual base URL
+  baseURL: 'http://192.168.0.124:9090/users/api', // use Vite proxy path
   timeout: 10000,
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
+    'Accept':'application/json'
   }
 })
 
 // ----------------------
-// Token Utilities
+// Token Helpers
 // ----------------------
 function getAccessToken() {
   return Cookies.get('access_token')
@@ -21,8 +23,8 @@ function getRefreshToken() {
 }
 
 function setTokens({ access_token, refresh_token }) {
-  Cookies.set('access_token', access_token, { expires: 1 })     // 1 day
-  Cookies.set('refresh_token', refresh_token, { expires: 7 })   // 7 days
+  Cookies.set('access_token', access_token, { expires: 1 })
+  Cookies.set('refresh_token', refresh_token, { expires: 7 })
 }
 
 function removeTokens() {
@@ -31,7 +33,7 @@ function removeTokens() {
 }
 
 // ----------------------
-// Refresh Token Queue
+// Refresh Queue
 // ----------------------
 let isRefreshing = false
 let refreshSubscribers = []
@@ -41,7 +43,7 @@ function subscribeTokenRefresh(cb) {
 }
 
 function onRefreshed(token) {
-  refreshSubscribers.forEach((cb) => cb(token))
+  refreshSubscribers.forEach(cb => cb(token))
   refreshSubscribers = []
 }
 
@@ -63,7 +65,6 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config
-
     const isLoginOrRefresh =
       originalRequest.url.includes('/auth/login') ||
       originalRequest.url.includes('/auth/refresh')
@@ -83,8 +84,10 @@ axiosInstance.interceptors.response.use(
       isRefreshing = true
 
       try {
-        const res = await axios.post('http://192.168.0.124:9090/user/api/auth/refresh', {
+        const res = await axios.post('/users/api/auth/refresh', {
           refresh_token: getRefreshToken(),
+        }, {
+          withCredentials: true
         })
 
         const { access_token, refresh_token } = res.data
@@ -97,7 +100,6 @@ axiosInstance.interceptors.response.use(
         return axiosInstance(originalRequest)
 
       } catch (err) {
-        console.error('Refresh token failed:', err)
         isRefreshing = false
         removeTokens()
         return Promise.reject(err)
