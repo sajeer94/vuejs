@@ -768,7 +768,7 @@
                      "caption": null,
                      "type": "item",
                      "url": "/userprivileges/userroles",
-                     "icon": "SupervisedUserCircleOutlinedIcon",
+                     "icon": "supervised_user_circle",
                      "parent": "MENU_USER_PRIVILEGE",
                      "menuorder": "1",
                      "active": "t",
