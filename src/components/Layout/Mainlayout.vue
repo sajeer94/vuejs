@@ -9,7 +9,7 @@ onMounted(async () => {
   const response = await fetch('/data/menu.json')
   const data = await response.json()
   menuLists.value = data.data
-  console.log(menuLists.value)
+
 })
 
 const drawer = ref(false)
