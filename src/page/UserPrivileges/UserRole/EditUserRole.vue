@@ -6,22 +6,19 @@
       </q-card-section>
 
       <!-- Error Alert -->
-      <div v-if="errorMessage" class="row items-center bg-red-2 text-red-10 q-mb-md q-pa-sm rounded-borders"
+      <q-banner v-if="errorMessage" class="bg-red-2 text-red-10 q-mb-md rounded-borders" inline-actions
         style="border: 1px solid #f5c6cb; white-space: pre-line;">
-        <div class="col-grow text-caption">
+        <div class="text-caption">
           {{ errorMessage }}
         </div>
-        <q-btn flat dense icon="close" size="sm" @click="errorMessage = ''" class="q-ml-sm text-red-10" />
-      </div>
 
-      <!-- Success Alert -->
-      <div v-else-if="successMessage" class="row items-center bg-green-2 text-green-10 q-mb-md q-pa-sm rounded-borders"
-        style="border: 1px solid #c3e6cb;">
-        <div class="col-grow text-caption">
-          {{ successMessage }}
-        </div>
-        <q-btn flat dense icon="close" size="sm" @click="successMessage = ''" class="q-ml-sm text-green-10" />
-      </div>
+        <template v-slot:action>
+          <q-btn flat dense round icon="close" size="sm" class="text-red-10" @click="errorMessage = ''" />
+        </template>
+      </q-banner>
+
+
+
 
       <q-card-section>
         <q-form @submit.prevent="updateRole">
@@ -89,9 +86,14 @@ export default {
 
       try {
         const roleId = this.$route.params.id;
-        console.log(this.role);
         const response = await this.$axios.put(`/users/role/${roleId}`, this.role);
-        this.successMessage = response.data.summary || 'Role updated successfully!';
+        const message = response.data.summary || 'Role updated successfully!';
+        this.$router.push({
+          path: `/userprivileges/userroles/view/${roleId}`,
+          state: { successMessage: message }
+        });
+
+
       } catch (error) {
         if (error.response?.data?.detail?.errors) {
           error.response.data.detail.errors.forEach(err => {
