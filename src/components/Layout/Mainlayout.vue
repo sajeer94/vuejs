@@ -1,47 +1,18 @@
-<script setup>
-import { ref, onMounted } from 'vue'
-import Cookies from 'js-cookie'
-import { useRouter } from 'vue-router'
-
-const menuLists = ref([])
-
-onMounted(async () => {
-  const response = await fetch('/data/menu.json')
-  const data = await response.json()
-  menuLists.value = data.data
-
-})
-
-const drawer = ref(false)
-const miniState = ref(true)
-const router = useRouter()
-
-function logout() {
-  Cookies.remove('access_token')
-  router.push('/auth/login')
-}
-</script>
-
 <template>
-  <div id="q-app" style="min-height: 100vh;">
+  <div class="q-md">
     <q-layout view="hHh Lpr lff" container style="height: 100vh" class="shadow-2 rounded-borders">
-      <!-- Header -->
-      <q-header elevated :class="$q.dark.isActive ? 'bg-dark' : 'bg-primary'">
+      <q-header elevated :class="$q.dark.isActive ? 'bg-black' : 'bg-primary'">
         <q-toolbar>
-          <q-btn flat @click="drawer = !drawer" round dense icon="menu"></q-btn>
+          <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
           <q-toolbar-title>Header</q-toolbar-title>
-          <q-btn flat round dense icon="logout" @click="logout"></q-btn>
+          <q-btn flat round dense icon="logout" @click="logout" />
         </q-toolbar>
       </q-header>
 
-      <!-- Drawer -->
-      <q-drawer v-model="drawer" show-if-above :mini="miniState" @mouseenter="miniState = false"
-        @mouseleave="miniState = true" :width="250" :breakpoint="500" bordered
-        :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'">
-        <q-scroll-area class="fit" :horizontal-thumb-style="{ opacity: 0 }">
+      <q-drawer v-model="drawer" show-if-above :mini="!drawer || miniState" @click.capture="drawerClick" :width="250"
+        :breakpoint="500" bordered :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'">
+        <q-scroll-area class="fit" color="primary" :horizontal-thumb-style="{ opacity: 0 }">
           <q-list padding>
-
-            <!-- Loop through menuLists -->
             <template v-for="(menu, index) in menuLists" :key="index">
               <!-- GROUP HEADER -->
               <q-item-label v-if="menu.type === 'group'" header class="text-weight-bold text-primary">
@@ -79,14 +50,17 @@ function logout() {
                 </q-item>
               </template>
             </template>
-
           </q-list>
         </q-scroll-area>
+
+      
+        <div class="q-mini-drawer-hide absolute" style="top: 15px; right: -17px">
+          <q-btn dense round unelevated color="primary" icon="chevron_left" @click="miniState = true" />
+        </div>
       </q-drawer>
 
-      <!-- Page container -->
       <q-page-container>
-        <q-page padding>
+        <q-page class="q-px-lg q-py-md">
           <router-view />
         </q-page>
       </q-page-container>
@@ -94,8 +68,38 @@ function logout() {
   </div>
 </template>
 
-<style scoped>
-.read-the-docs {
-  color: #888;
+<script>
+import { ref, onMounted } from 'vue'
+import Cookies from 'js-cookie'
+import { useRouter } from 'vue-router'
+export default {
+  setup() {
+    const miniState = ref(false)
+    const router = useRouter()
+    const menuLists = ref([])
+
+    onMounted(async () => {
+      const response = await fetch('/data/menu.json')
+      const data = await response.json()
+      menuLists.value = data.data
+
+    })
+    function logout() {
+      Cookies.remove('access_token')
+      router.push('/auth/login')
+    }
+    return {
+      drawer: ref(true),
+      miniState,
+      logout,
+      menuLists,
+      drawerClick(e) {
+        if (miniState.value) {
+          miniState.value = false
+          e.stopPropagation()
+        }
+      }
+    }
+  }
 }
-</style>
+</script>
