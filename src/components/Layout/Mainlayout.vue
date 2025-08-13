@@ -54,12 +54,13 @@
         </q-scroll-area>
 
       
-        <div class="q-mini-drawer-hide absolute" style="top: 15px; right: -17px">
+        <div class="q-mini-drawer-hide absolute" style="top: 80px; left: 90%">
           <q-btn dense round unelevated color="primary" icon="chevron_left" @click="miniState = true" />
         </div>
       </q-drawer>
 
       <q-page-container>
+        <DynamicBreadcrumb />
         <q-page class="q-px-lg q-py-md">
           <router-view />
         </q-page>
@@ -72,7 +73,11 @@
 import { ref, onMounted } from 'vue'
 import Cookies from 'js-cookie'
 import { useRouter } from 'vue-router'
+import DynamicBreadcrumb from '../DynamicBreadcrumb.vue'
 export default {
+  components: {
+    DynamicBreadcrumb
+  },
   setup() {
     const miniState = ref(false)
     const router = useRouter()
