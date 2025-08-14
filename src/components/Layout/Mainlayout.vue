@@ -108,3 +108,12 @@ export default {
   }
 }
 </script>
+<style>
+.q-item__section--avatar {
+  min-width: 10px !important;
+}
+
+.q-item__section--side > .q-icon {
+  font-size: 16px !important;
+}
+</style>
