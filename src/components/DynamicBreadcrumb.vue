@@ -1,61 +1,79 @@
 <template>
-    <q-toolbar class="bg-primary text-white" inset>
-      <q-breadcrumbs active-color="white" class="text-white" separator="/">
-        <q-breadcrumbs-el
-          v-for="(crumb, index) in breadcrumbs"
-          :key="index"
-          :label="crumb.label"
-          :icon="crumb.icon"   
-          :to="crumb.to"
-          exact
-          class="text-white"
-        />
-      </q-breadcrumbs>
-    </q-toolbar>
-  </template>
-  <script setup>
-  import { ref, computed } from 'vue'
-  import { useRoute } from 'vue-router'
-  import axios from 'axios'
-  
-  const route = useRoute()
-  const breadcrumbData = ref({})
-  
-  // Load JSON from correct path
-  async function loadBreadcrumbData() {
-    try {
-      const { data } = await axios.get('/data/menu.json') 
-      breadcrumbData.value = Object.fromEntries(
-        Object.entries(data).map(([k, v]) => [k.toLowerCase(), v])
-      )
-    } catch (err) {
-      console.error('Failed to load breadcrumbs:', err)
-    }
+  <q-toolbar class="bg-primary text-white">
+    <q-breadcrumbs
+      v-if="!loadingBreadcrumbs"
+      active-color="white"
+      class="text-white"
+      separator="/"
+    >
+      <q-breadcrumbs-el
+        v-for="(crumb, index) in breadcrumbs"
+        :key="index"
+        :label="crumb.label"
+        :icon="crumb.icon"
+        v-bind="index === 0 ? { tag: 'span' } : { to: crumb.to, exact: true }"
+        class="text-white"
+      />
+    </q-breadcrumbs>
+  </q-toolbar>
+</template>
+
+<script setup>
+import { ref, computed, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+const breadcrumbData = ref({})
+const loadingBreadcrumbs = ref(true)
+
+async function loadBreadcrumbData() {
+  try {
+    const response = await fetch('/data/menu.json')
+    const data = await response.json()
+
+    // Store keys as lowercase for case-insensitive lookup
+    breadcrumbData.value = Object.fromEntries(
+      Object.entries(data).map(([k, v]) => [k.toLowerCase(), v])
+    )
+  } catch (err) {
+    console.error('Failed to load breadcrumbs:', err)
+  } finally {
+    loadingBreadcrumbs.value = false
   }
-  loadBreadcrumbData()
-  
-  // Computed breadcrumbs
-  const breadcrumbs = computed(() => {
-    const segments = route.path.split('/').filter(Boolean)
-    let pathAcc = ''
-  
-    const crumbs = segments.map(segment => {
-      pathAcc += '/' + segment
-      const data = breadcrumbData.value[segment.toLowerCase()] || {}
-      console.log
-      const label = data.label || (/^\d+$/.test(segment) ? 'Detail' : segment.charAt(0).toUpperCase() + segment.slice(1))
-      const icon = data.icon || 'folder'
-      return { label, icon, to: pathAcc }
-    })
-  
-    return [ ...crumbs]
+}
+
+onMounted(loadBreadcrumbData)
+
+const breadcrumbs = computed(() => {
+  if (loadingBreadcrumbs.value) return []
+
+  const segments = route.path.split('/').filter(Boolean)
+  let pathAcc = ''
+
+  return segments.map(segment => {
+    pathAcc += '/' + segment
+    const key = segment.toLowerCase()
+    const data = breadcrumbData.value[key] || {}
+
+    const label =
+      data.label ||
+      (/^\d+$/.test(segment)
+        ? 'Detail'
+        : segment.charAt(0).toUpperCase() + segment.slice(1))
+
+    // Icon fix: ensure valid string, else fallback
+    const icon =
+      typeof data.icon === 'string' && data.icon.trim() !== ''
+        ? data.icon.trim()
+        : 'folder'
+
+    return { label, icon, to: pathAcc }
   })
-  </script>
-  
-  
-  <style scoped>
-  .q-breadcrumbs {
-    font-size: 16px;
-  }
-  </style>
-  
+})
+</script>
+
+<style scoped>
+.q-breadcrumbs {
+  font-size: 16px;
+}
+</style>

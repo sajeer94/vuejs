@@ -13,7 +13,7 @@
       </template>
     </q-banner>
 
-    <!-- Table -->
+    <!-- Roles Table -->
     <q-table
       flat
       bordered
@@ -61,53 +61,69 @@
           <q-th v-for="col in props.cols" :key="col.name" :props="props" class="q-pa-xs">
             <div class="column items-start q-gutter-xs">
               <div class="text-weight-medium text-grey-8">{{ col.label }}</div>
+
+              <!-- Filter inputs for code, name, description -->
               <q-input
-                v-if="['code', 'name', 'description'].includes(col.name)"
+                v-if="['code', 'name','description'].includes(col.name)"
                 dense
                 outlined
                 debounce="300"
                 v-model="columnFilters[col.name]"
                 @update:model-value="onColumnSearch"
                 placeholder="Filter..."
-                input-class="text-body2"
-                style="max-width: 130px;"
+                input-class="text-body2 text-left"
+                style="max-width: 100%;"
                 clearable
               />
+
+              <!-- Blank space for active and action (no border) -->
+              <div
+                v-else-if="['active', 'action'].includes(col.name)"
+                style="height: 30px;"
+              ></div>
             </div>
           </q-th>
         </q-tr>
       </template>
 
-      <!-- Action column -->
-      <template v-slot:body-cell-action="props">
-        <q-td :props="props">
-          <q-btn color="primary" label="Actions" size="sm">
-            <q-menu>
-              <q-list style="min-width: 150px">
-                <q-item
-                  clickable
-                  v-if="props.row.active"
-                  v-ripple
-                  :to="`userroles/edit/${props.row.id}`"
-                >
-                  <q-item-section>Edit</q-item-section>
-                </q-item>
+      <!-- Body cells center-aligned -->
+      <template v-slot:body-cell="props">
+        <q-td :props="props" class="text-center">
+          <template v-if="props.col.name === 'active'">
+            {{ props.row.active ? 'Yes' : 'No' }}
+          </template>
+          <template v-else-if="props.col.name === 'action'">
+            <q-btn color="primary" label="Actions" size="sm">
+              <q-menu>
+                <q-list style="min-width: 150px">
+                  <q-item
+                    clickable
+                    v-if="props.row.active"
+                    v-ripple
+                    :to="`userroles/edit/${props.row.id}`"
+                  >
+                    <q-item-section>Edit</q-item-section>
+                  </q-item>
 
-                <q-item clickable v-ripple :to="`userroles/view/${props.row.id}`">
-                  <q-item-section>View</q-item-section>
-                </q-item>
+                  <q-item clickable v-ripple :to="`userroles/view/${props.row.id}`">
+                    <q-item-section>View</q-item-section>
+                  </q-item>
 
-                <q-item
-                  clickable
-                  v-if="!props.row.active"
-                  v-ripple
-                  @click="promptDelete(props.row.id)"
-                >
-                  <q-item-section>Delete</q-item-section>
-                </q-item>
-              </q-list>
-            </q-menu>
-          </q-btn>
+                  <q-item
+                    clickable
+                    v-if="!props.row.active"
+                    v-ripple
+                    @click="promptDelete(props.row.id)"
+                  >
+                    <q-item-section>Delete</q-item-section>
+                  </q-item>
+                </q-list>
+              </q-menu>
+            </q-btn>
+          </template>
+          <template v-else>
+            {{ props.row[props.col.field] }}
+          </template>
         </q-td>
       </template>
     </q-table>
@@ -145,6 +161,7 @@ const columnFilters = ref({
   description: ''
 })
 
+// Pagination
 const pagination = ref({
   page: 1,
   rowsPerPage: 10,
@@ -153,26 +170,27 @@ const pagination = ref({
   rowsNumber: 0
 })
 
+// Columns
 const columns = [
   { name: 'code', label: 'Code', field: 'code', sortable: true },
   { name: 'name', label: 'Role Name', field: 'name', sortable: true },
-  { name: 'description', label: 'Description', field: 'description', sortable: false },
-  { name: 'active', label: 'Active', field: 'active', sortable: true, format: val => (val ? 'Yes' : 'No') },
-  { name: 'action', label: 'Action', field: 'action', sortable: false }
+  { name: 'description', label: 'Description', field: 'description', sortable: true },
+  { name: 'active', label: 'Active', field: 'active', sortable: true },
+  { name: 'action', label: 'Action', field: 'action', sortable: true }
 ]
 
 // Delete dialog
 const confirmDialog = ref(false)
 const roleIdToDelete = ref(null)
 
-// Fetch roles from API with column search and operator
+// Fetch roles from API
 async function fetchFromApi(page, rowsPerPage, filter, sortBy, descending) {
   const filters = Object.entries(columnFilters.value)
     .filter(([key, val]) => val)
     .map(([key, val]) => ({
       key,
       value: val,
-      operator: 'LIKE' // <-- required by backend
+      operator: 'LIKE'
     }))
 
   const requestBody = {
@@ -214,7 +232,7 @@ const onColumnSearch = debounce(() => {
   onRequest({ pagination: pagination.value })
 }, 300)
 
-// Delete
+// Delete actions
 function promptDelete(roleId) {
   roleIdToDelete.value = roleId
   confirmDialog.value = true
@@ -239,3 +257,10 @@ onMounted(() => {
   onRequest({ pagination: pagination.value })
 })
 </script>
+
+<style scoped>
+/* Optional: make all body cells centered */
+.q-table tbody td {
+  text-align: justify;
+}
+</style>

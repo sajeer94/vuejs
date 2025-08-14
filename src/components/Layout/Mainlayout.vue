@@ -10,7 +10,7 @@
       </q-header>
 
       <q-drawer v-model="drawer" show-if-above :mini="!drawer || miniState" @click.capture="drawerClick" :width="250"
-        :breakpoint="500" bordered :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'">
+        :breakpoint="500" bordered :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-white'">
         <q-scroll-area class="fit" color="primary" :horizontal-thumb-style="{ opacity: 0 }">
           <q-list padding>
             <template v-for="(menu, index) in menuLists" :key="index">
@@ -59,7 +59,7 @@
         </div>
       </q-drawer>
 
-      <q-page-container>
+      <q-page-container class="bg-grey-3">
         <DynamicBreadcrumb />
         <q-page class="q-px-lg q-py-md">
           <router-view />
